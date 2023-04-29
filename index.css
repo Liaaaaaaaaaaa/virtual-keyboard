@@ -1,0 +1,51 @@
+.body {
+  padding: 50px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard-area {
+  width: 1050px;
+  height: 200px;
+}
+
+/* .keyboard {} */
+
+.keyboard__container {
+  display: flex;
+  width: 1250px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+}
+
+.keyboard__button {
+  min-width: 50px;
+  padding: 10px;
+  height: 50px;
+  border: solid 2px #000000;
+  border-radius: 5px;
+  margin: 5px;
+  list-style: none;
+  background: #2c0be530;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 3px;
+}
+
+.simbol-1 {
+  align-self: flex-start;
+  justify-self: flex-start;
+  padding-right: 2px;
+} 
+
+.double-width {
+  width: 100px;
+}
