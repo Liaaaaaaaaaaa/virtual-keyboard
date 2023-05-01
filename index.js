@@ -15,7 +15,7 @@ let massiveButton = [
 
   'Shift', '\\', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '.', ',', '/', '&uarr;', 'Shift',
 
-  'Ctrl', ' Win', 'Alt', '', 'Alt', 'Ctrl', '&#8592;', '&#8595;', '&#8594;',
+  'Ctrl', 'Win', 'Alt', ' ', 'Alt', 'Ctrl', '&#8592;', '&#8595;', '&#8594;',
 
 ];
 
@@ -56,26 +56,50 @@ function ActiveKeyButton(e) {
   //  console.log(e);
 
   if (e.classList.contains('keyboard__button')) {
-    e.classList.add("active");
-      writeKeyButton(e.textContent.toLowerCase());
-  
 
+    e.classList.add("active");
+    e.classList.add("active-active");
+    console.log(e);
+    setTimeout(() => e.classList.remove("active-active"), 150);
+    writeKeyButton(e.textContent.toLowerCase());
+    console.log(e.textContent);
   }
+setTimeout((function (e) {
+  e.classList.remove("active-active")
+}), 1);
+
+
 
 }
+
 
 document.body.addEventListener("click", ActiveKeyButton);
 
 //---Click---Really-keyboard---------------------------
 document.body.addEventListener("keydown", function (button) {
 
-  console.log(button.key);
-  console.log(keyboardButton);
+  console.log(button);
 
   for (let i = 0; i < keyboardButton.length; i++) {
     let keysmall = keyboardButton[i].textContent;
 
-    if (keysmall === button.key || keysmall.toLowerCase() === button.key || keysmall.slice(1) === button.key) {
+    if (
+      keysmall === '↑' && button.key === "ArrowUp" ||
+      keysmall === '←' && button.key === "ArrowLeft" ||
+      keysmall === '↓' && button.key === "ArrowDown" ||
+      keysmall === '→' && button.key === "ArrowRight" ||
+      keysmall === 'Shift' && button.key === "Shift" && button.code === "ShiftLeft" ||
+      keysmall === 'Alt' && button.key === "Alt" && button.code === 'AltLeft' ||
+      keysmall === 'Ctrl' && button.key === "Control" && button.code === 'ControlLeft' ||
+      keysmall === 'Win' && button.key === "Meta"
+    ) {
+      return ActiveKeyButton(keyboardButton[i])
+
+    } else if (keysmall === button.key ||
+      keysmall.toLowerCase() === button.key ||
+      keysmall.slice(1) === button.key ||
+      keysmall === 'Ctrl' && button.key === "Control"
+    ) {
       ActiveKeyButton(keyboardButton[i]);
     }
   }
@@ -86,15 +110,14 @@ const keyboardArea = document.querySelector('.keyboard-area');
 function writeKeyButton(e) {
   if (e.length === 1) {
     keyboardArea.textContent += e;
-  } else {
-  //  if (e.length === 2) 
+  } else if (e.length === 2) {
     keyboardArea.textContent += e.slice(1);
+  } else if (e.textContent === ' ') {
+    keyboardArea.textContent += ' ';
   }
-  // else {
-  //   // console.log(e);
-  //   // console.log(e.code)
-  //   // console.log(KeyboardEvent('Backspace'))
-  // }
-
+  else if (e.length === 9) {
+    console.log(keyboardArea.textContent.slice(0, -1));
+    keyboardArea.textContent = keyboardArea.textContent.slice(0, -1);
+  }
 }
 
