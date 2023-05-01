@@ -7,7 +7,7 @@
 }
 
 .keyboard-area {
-  width: 1050px;
+  width: 1150px;
   height: 200px;
 }
 
@@ -15,10 +15,10 @@
 
 .keyboard__container {
   display: flex;
-  width: 1250px;
+  width: 1220px;
   flex-wrap: wrap;
   justify-content: space-between;
-  
+  padding: 0;
 }
 
 .keyboard__button {
@@ -27,7 +27,7 @@
   height: 50px;
   border: solid 2px #000000;
   border-radius: 5px;
-  margin: 5px;
+  margin: 3px;
   list-style: none;
   background: #2c0be530;
   color: #000000;
@@ -38,6 +38,12 @@
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 3px;
+  transition: all 0.5s;
+}
+
+.keyboard__button:active {
+  scale: 1.2;
+  transition: all 0.5s;
 }
 
 .simbol-1 {
@@ -48,4 +54,8 @@
 
 .double-width {
   width: 100px;
+}
+
+.active {
+  background: #690be5ef;
 }

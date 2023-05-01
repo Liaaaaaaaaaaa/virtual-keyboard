@@ -1,31 +1,32 @@
+//---------Create a keyboard----------------------
+
 const body = document.querySelector(".body");
 
 body.insertAdjacentHTML("afterbegin", '<textarea class="keyboard-area"></textarea>  <section class="keyboard"><ul class="keyboard__container"></ul></section>');
 
 const keyboardContainer = document.querySelector('.keyboard__container');
 
-console.log(keyboardContainer);
-
 let massiveButton = [
-  '`~', '!1', '@2', '#3', '$4', '%5', '^6', '&7','*8', '(9', ')0', '_-', '+=', 'Backspace',
+  '~`', '!1', '@2', '#3', '$4', '%5', '^6', '&7', '*8', '(9', ')0', '_-', '+=', 'Backspace',
 
-  'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '/\\', 'DEL',
+  'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '/\\', 'Delete',
 
-  'Caps Lock', 'A', 'S',' D', 'F', 'G', 'H', 'J', 'K',' L', ';', '\'', 'ENTER',
+  'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'Enter',
 
-  'Shift ', '\\', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '.', ',', '/', '&uarr;', 'Shift',
+  'Shift', '\\', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '.', ',', '/', '&uarr;', 'Shift',
 
- 'Ctrl',' Win', 'Alt', '', 'Alt', 'Ctrl', '&#8592;', '&#8595;', '&#8594;',
+  'Ctrl', ' Win', 'Alt', '', 'Alt', 'Ctrl', '&#8592;', '&#8595;', '&#8594;',
 
 ];
+
 let nameButton = '';
 
 function giveNameButton() {
   for (let i = 0; i < massiveButton.length; i++) {
-    if(i < 13 || i === 27) {
-      nameButton += '<li class="keyboard__button"><span class ="simbol-1 ">'+ massiveButton[i].slice(0,1) + '</span>' + massiveButton[i].slice(1) + '</li>';
+    if (i < 13 || i === 27) {
+      nameButton += '<li class="keyboard__button"><span class ="simbol-1 ">' + massiveButton[i].slice(0, 1) + '</span>' + massiveButton[i].slice(1) + '</li>';
     } else {
-       nameButton += '<li class="keyboard__button">' + massiveButton[i] + '</li>';
+      nameButton += '<li class="keyboard__button">' + massiveButton[i] + '</li>';
     }
   }
   keyboardContainer.innerHTML = nameButton;
@@ -33,7 +34,67 @@ function giveNameButton() {
 
 giveNameButton();
 
-
-console.log(massiveButton);
-console.log(keyboardContainer.children[59].style.width );
 keyboardContainer.children[59].style.width = '515px';
+keyboardContainer.children[41].style.width = '120px';
+keyboardContainer.children[42].style.width = '120px';
+
+
+//--Interactive--keyboard--------------------
+const keyboardButton = keyboardContainer.children;
+
+function ActiveKeyButton(e) {
+
+  // console.log(e);
+
+  Array.from(keyboardButton).forEach(x => x.classList.remove("active"));
+
+  if (keyboardContainer.contains(e.target)) {
+    e.target.closest('.keyboard__button').classList.add("active");
+    writeKeyButton(e.target.closest('.keyboard__button').textContent.toLowerCase());
+  }
+
+  //  console.log(e);
+
+  if (e.classList.contains('keyboard__button')) {
+    e.classList.add("active");
+      writeKeyButton(e.textContent.toLowerCase());
+  
+
+  }
+
+}
+
+document.body.addEventListener("click", ActiveKeyButton);
+
+//---Click---Really-keyboard---------------------------
+document.body.addEventListener("keydown", function (button) {
+
+  console.log(button.key);
+  console.log(keyboardButton);
+
+  for (let i = 0; i < keyboardButton.length; i++) {
+    let keysmall = keyboardButton[i].textContent;
+
+    if (keysmall === button.key || keysmall.toLowerCase() === button.key || keysmall.slice(1) === button.key) {
+      ActiveKeyButton(keyboardButton[i]);
+    }
+  }
+});
+
+const keyboardArea = document.querySelector('.keyboard-area');
+
+function writeKeyButton(e) {
+  if (e.length === 1) {
+    keyboardArea.textContent += e;
+  } else {
+  //  if (e.length === 2) 
+    keyboardArea.textContent += e.slice(1);
+  }
+  // else {
+  //   // console.log(e);
+  //   // console.log(e.code)
+  //   // console.log(KeyboardEvent('Backspace'))
+  // }
+
+}
+
