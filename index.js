@@ -44,8 +44,6 @@ const keyboardButton = keyboardContainer.children;
 
 function ActiveKeyButton(e) {
 
-  // console.log(e);
-
   Array.from(keyboardButton).forEach(x => x.classList.remove("active"));
 
   if (keyboardContainer.contains(e.target)) {
@@ -53,27 +51,21 @@ function ActiveKeyButton(e) {
     writeKeyButton(e.target.closest('.keyboard__button').textContent.toLowerCase());
   }
 
-  //  console.log(e);
 
   if (e.classList.contains('keyboard__button')) {
 
     e.classList.add("active");
     e.classList.add("active-active");
-    console.log(e);
     setTimeout(() => e.classList.remove("active-active"), 150);
     writeKeyButton(e.textContent.toLowerCase());
-    console.log(e.textContent);
   }
-setTimeout((function (e) {
-  e.classList.remove("active-active")
-}), 1);
-
-
-
+  setTimeout((function (e) {
+    e.classList.remove("active-active")
+  }), 1);
 }
 
-
 document.body.addEventListener("click", ActiveKeyButton);
+
 
 //---Click---Really-keyboard---------------------------
 document.body.addEventListener("keydown", function (button) {
@@ -116,7 +108,6 @@ function writeKeyButton(e) {
     keyboardArea.textContent += ' ';
   }
   else if (e.length === 9) {
-    console.log(keyboardArea.textContent.slice(0, -1));
     keyboardArea.textContent = keyboardArea.textContent.slice(0, -1);
   }
 }
